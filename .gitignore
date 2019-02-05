@@ -1,11 +1,11 @@
-local_settings.py
+*.py[cod]
 logs
-hierohands/static
+local_settings.py
+/hierohands/static
 /build
-django_cache
 /digipal_text
 /digipal
-*.py[cod]
+/hierohands/django_cache
 /hierohands/search
 /hierohands/backups
-/hierohands/app_ctrs_lcl
+hierohands/app_hierohands_lcl
