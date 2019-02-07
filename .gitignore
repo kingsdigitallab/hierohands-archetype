@@ -9,3 +9,4 @@ local_settings.py
 /hierohands/search
 /hierohands/backups
 hierohands/app_hierohands_lcl
+/iipsrv.sh

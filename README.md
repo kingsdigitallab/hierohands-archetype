@@ -40,25 +40,12 @@ pip install -r hierohands-archetype/build/requirements.txt
 ```
 
 ## database
-Use sqlite, local_settings.py will have this block
-
-```
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'app_hierohands_lcl',
-    },
-}
-```
-
-OR, if you prefer to use postgresql
-
 ```
 sudo su postgres
 psql
-create user app_hierohands_archetype with password 'XXX';
+create user app_hierohands with password 'XXX';
 \q
-createdb -E 'utf-8' -T template0 -O app_hierohands_archetype app_hierohands_archetype_lcl
+createdb -E 'utf-8' -T template0 -O app_hierohands app_hierohands_lcl
 ```
 
 and modify local_settings.py accordingly
