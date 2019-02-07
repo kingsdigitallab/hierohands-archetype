@@ -42,7 +42,7 @@ ANNOTATOR_ZOOM_LEVELS = 7  # This setting sets the number of zoom levels of O
 FOOTER_LOGO_LINE = True
 
 # Customise the faceted search settings
-MODELS_PRIVATE = ['textcontentxml', 'itempart', 'image']
+MODELS_PRIVATE = ['itempart', 'image', 'graph', 'hand', 'textcontentxml']
 MODELS_PUBLIC = MODELS_PRIVATE
 
 DEBUG_PERFORMANCE = False
