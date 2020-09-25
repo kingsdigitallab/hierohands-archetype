@@ -10,3 +10,5 @@ local_settings.py
 /hierohands/backups
 hierohands/app_hierohands_lcl
 /iipsrv.sh
+/.idea
+dp.sql

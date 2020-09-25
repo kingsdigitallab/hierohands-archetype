@@ -13,7 +13,6 @@ By default, it is disabled. You can enable it by setting the variable LIGHTBOX i
 LIGHTBOX = False
 
 # Mezzanine
-# SITE_TITLE = 'The community of the realm in Scotland'
 SITE_TITLE = 'Hieroglyphic Hands'
 
 # Social
@@ -88,7 +87,7 @@ TEXT_EDITOR_OPTIONS_CUSTOM = {
     },
     'show_highlights_in_preview': 1,
     'toolbars': {
-        'default': 'psclear undo redo pssave | btnPerson btnPlace btnDate btnOccupation btnReligion btnReligiousStatus | btnJuridicalStatus btnInfrastructure btnBuilding btnLand btnEconomicData btnItem | code ',
+        'default': 'psclear undo redo pssave | pslocation | btnPerson btnPlace btnDate btnOccupation btnReligion btnReligiousStatus | btnJuridicalStatus btnInfrastructure btnBuilding btnLand btnEconomicData btnItem | code ',
     },
     'panels': {
         'north': {
@@ -99,3 +98,4 @@ TEXT_EDITOR_OPTIONS_CUSTOM = {
         },
     }
 }
+
