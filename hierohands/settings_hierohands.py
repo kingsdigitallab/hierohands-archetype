@@ -55,7 +55,7 @@ COMPRESS_ENABLED = True
 TEXT_IMAGE_MASTER_CONTENT_TYPE = 'transcription'
 KDL_MAINTAINED = True
 
-TEXT_EDITOR_OPTIONS_CUSTOM = {
+TEXT_EDITOR_OPTIONS_CUSTOM2 = {
     'buttons': {
         'btnPersonName': {'label': 'Person name', 'tei': '<rs type="person" subtype="name">{}</rs>'},
         'btnPersonMaritalStatus': {'label': 'Marital status', 'tei': '<rs type="person" subtype="marital-status">{}</rs>'},
@@ -99,3 +99,12 @@ TEXT_EDITOR_OPTIONS_CUSTOM = {
     }
 }
 
+from digipal.views.faceted_search.settings import FACETED_SEARCH
+
+search_graphs = FACETED_SEARCH['type_keys']['graphs']
+search_graphs['fields'].append({
+    'key': 'allograph_illustration', 'label': 'Allograph',
+    'path': 'idiograph.allograph.illustration',
+    'viewable': True, 'type': 'django_image'
+})
+search_graphs['column_order'].append('allograph_illustration')
