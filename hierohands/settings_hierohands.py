@@ -99,12 +99,27 @@ TEXT_EDITOR_OPTIONS_CUSTOM2 = {
     }
 }
 
-from digipal.views.faceted_search.settings import FACETED_SEARCH
+from digipal.views.faceted_search.settings import (
+    remove_fields_from_faceted_search, FacettedType
+)
 
-search_graphs = FACETED_SEARCH['type_keys']['graphs']
-search_graphs['fields'].append({
+search_graphs = FacettedType.fromKey('graphs')
+search_graphs.addField({
     'key': 'allograph_illustration', 'label': 'Allograph',
     'path': 'idiograph.allograph.illustration',
     'viewable': True, 'type': 'django_image'
 })
-search_graphs['column_order'].append('allograph_illustration')
+search_graphs.addFieldToOption('column_order', 'allograph_illustration')
+search_graphs.addField({
+    'key': 'scribe', 'label': 'Scribe',
+    'path': 'hand.scribe.get_search_label',
+    'viewable': True, 'type': 'title'
+})
+search_graphs.addFieldToOption('column_order', 'scribe', 'hand_label')
+search_graphs.addFieldToOption('column_order', 'character', 'allograph')
+
+search_graphs.getField('repo_place')['path'] = 'annotation.image.item_part.current_item.repository.short_name'
+del search_graphs.getField('repo_place')['path_result']
+search_graphs.getField('thumbnail')['label'] = 'Picture'
+
+remove_fields_from_faceted_search(['allograph', 'repo_city', 'hi_date', 'hand_place', 'hand_label', 'locus'], 'graphs')

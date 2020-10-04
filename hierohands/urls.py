@@ -4,6 +4,7 @@ from django.contrib import admin
 # from exon.customisations.mapping import models
 
 admin.autodiscover()
+# Leave that import here even if we don't use it. Monkey patching.
 from hierohands.customisations import models
 
 # ADD YOUR OWN URLPATTERNS *ABOVE* THE LINE BELOW.
