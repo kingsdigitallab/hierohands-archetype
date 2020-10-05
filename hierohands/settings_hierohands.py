@@ -99,6 +99,8 @@ TEXT_EDITOR_OPTIONS_CUSTOM2 = {
     }
 }
 
+# customisation of the search page
+
 from digipal.views.faceted_search.settings import (
     remove_fields_from_faceted_search, FacettedType
 )
@@ -107,15 +109,26 @@ search_graphs = FacettedType.fromKey('graphs')
 search_graphs.addField({
     'key': 'allograph_illustration', 'label': 'Allograph',
     'path': 'idiograph.allograph.illustration',
-    'viewable': True, 'type': 'django_image'
+    'viewable': True, 'type': 'django_image',
+    'max_size': 100,
 })
 search_graphs.addFieldToOption('column_order', 'allograph_illustration')
+
+search_graphs.addField({
+    'key': 'ductus', 'label': 'Ductus',
+    'path': 'annotation.illustration_ductus',
+    'viewable': True, 'type': 'django_image',
+    'max_size': 100,
+})
+search_graphs.addFieldToOption('column_order', 'ductus')
+
 search_graphs.addField({
     'key': 'scribe', 'label': 'Scribe',
     'path': 'hand.scribe.get_search_label',
     'viewable': True, 'type': 'title'
 })
 search_graphs.addFieldToOption('column_order', 'scribe', 'hand_label')
+
 search_graphs.addFieldToOption('column_order', 'character', 'allograph')
 
 search_graphs.getField('repo_place')['path'] = 'annotation.image.item_part.current_item.repository.short_name'

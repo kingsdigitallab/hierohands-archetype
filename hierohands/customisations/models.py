@@ -1,6 +1,8 @@
 import re
 from digipal import models
 
+# change the label of the table in the admin interface
+
 
 def set_verbose_name(model, singular, plural=None):
     model._meta.verbose_name = singular
@@ -13,8 +15,11 @@ set_verbose_name(models.Repository, 'Tomb')
 set_verbose_name(models.ItemPart, 'Wall')
 set_verbose_name(models.Image, 'Decorum Section')
 
+# add support in the models for search fields
+
 
 def scribe_get_search_label(self):
     return re.sub(r'\(.*\)', r'', (self.name or '')).strip()
+
 
 models.Scribe.get_search_label = scribe_get_search_label
