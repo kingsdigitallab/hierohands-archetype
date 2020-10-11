@@ -106,6 +106,53 @@ from digipal.views.faceted_search.settings import (
 )
 
 search_graphs = FacettedType.fromKey('graphs')
+
+search_graphs.addFieldToOption('column_order', 'character', 'allograph')
+
+def get_val_from_note(annotation, key):
+    if not annotation:
+        return ''
+    import re
+    ret = re.findall(
+        r'\b'+re.escape(key)+r'\s*:\s*([^<\n$]+)',
+        annotation.display_note or ''
+    )
+    if ret:
+        return ret[0]
+    else:
+        return ''
+
+
+def get_mdc_from_annotation(annotation):
+    return get_val_from_note(annotation, 'mdc')
+
+
+def get_translation_from_annotation(annotation):
+    return get_val_from_note(annotation, 'tla')
+
+
+def get_transliteration_from_annotation(annotation):
+    return get_val_from_note(annotation, 'tli')
+
+
+def get_search_label_from_scribe(scribe):
+    import re
+    return re.sub(r'\(.*\)', r'', (scribe.name or '')).strip()
+
+
+search_graphs.addField({
+    'key': 'translation', 'label': 'Translation',
+    'path': 'annotation', 'transform': get_translation_from_annotation,
+    'viewable': True, 'type': 'title', 'search': True,
+})
+search_graphs.addFieldToOption('column_order', 'translation', 'character')
+search_graphs.addField({
+    'key': 'transliteration', 'label': 'Transliteration',
+    'path': 'annotation', 'transform': get_transliteration_from_annotation,
+    'viewable': True, 'type': 'title', 'search': True,
+})
+search_graphs.addFieldToOption('column_order', 'transliteration', 'character')
+
 search_graphs.addField({
     'key': 'allograph_illustration', 'label': 'Allograph',
     'path': 'idiograph.allograph.illustration',
@@ -124,15 +171,30 @@ search_graphs.addFieldToOption('column_order', 'ductus')
 
 search_graphs.addField({
     'key': 'scribe', 'label': 'Scribe',
-    'path': 'hand.scribe.get_search_label',
-    'viewable': True, 'type': 'title'
+    'path': 'hand.scribe', 'transform': get_search_label_from_scribe,
+    'viewable': True, 'type': 'title', 'search': True,
 })
 search_graphs.addFieldToOption('column_order', 'scribe', 'hand_label')
 
-search_graphs.addFieldToOption('column_order', 'character', 'allograph')
+search_graphs.addField({
+    'key': 'group_thumbnail', 'label': 'Sign group',
+    'path': 'group.annotation',
+    'viewable': True, 'type': 'image',
+    'max_size': 70,
+})
+search_graphs.addFieldToOption('column_order', 'group_thumbnail')
+search_graphs.addField({
+    'key': 'group_name', 'label': 'Sign Group',
+    'path': 'group.annotation', 'transform': get_mdc_from_annotation,
+    'viewable': True, 'type': 'code', 'search': True,
+})
+search_graphs.addFieldToOption('column_order', 'group_name')
 
 search_graphs.getField('repo_place')['path'] = 'annotation.image.item_part.current_item.repository.short_name'
+search_graphs.getField('character')['search'] = True
+search_graphs.getField('character')['type'] = 'title'
 del search_graphs.getField('repo_place')['path_result']
 search_graphs.getField('thumbnail')['label'] = 'Picture'
 
 remove_fields_from_faceted_search(['allograph', 'repo_city', 'hi_date', 'hand_place', 'hand_label', 'locus'], 'graphs')
+
