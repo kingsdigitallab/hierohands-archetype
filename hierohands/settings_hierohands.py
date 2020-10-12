@@ -118,13 +118,16 @@ def get_val_from_note(annotation, key):
         annotation.display_note or ''
     )
     if ret:
-        return ret[0]
+        return ret[0].strip()
     else:
         return ''
 
 
-def get_mdc_from_annotation(annotation):
-    return get_val_from_note(annotation, 'mdc')
+def get_mdc_from_graph(graph):
+    ret = get_val_from_note(graph.annotation, 'mdc')
+    if not ret and graph.group:
+        ret = get_val_from_note(graph.group.annotation, 'mdc')
+    return ret
 
 
 def get_translation_from_annotation(annotation):
@@ -185,7 +188,7 @@ search_graphs.addField({
 search_graphs.addFieldToOption('column_order', 'group_thumbnail')
 search_graphs.addField({
     'key': 'group_name', 'label': 'Sign Group',
-    'path': 'group.annotation', 'transform': get_mdc_from_annotation,
+    'path': '', 'transform': get_mdc_from_graph,
     'viewable': True, 'type': 'code', 'search': True,
 })
 search_graphs.addFieldToOption('column_order', 'group_name')
