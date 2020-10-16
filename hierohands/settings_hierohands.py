@@ -124,9 +124,13 @@ def get_val_from_note(annotation, key):
 
 
 def get_mdc_from_graph(graph):
-    ret = get_val_from_note(graph.annotation, 'mdc')
-    if not ret and graph.group:
-        ret = get_val_from_note(graph.group.annotation, 'mdc')
+    ret = ''
+    annotation = getattr(graph, 'annotation', None)
+    if annotation:
+        ret = get_val_from_note(annotation, 'mdc')
+    if not ret and graph.group_id:
+        annotation = getattr(graph.group, 'annotation', None)
+        ret = get_val_from_note(annotation, 'mdc')
     return ret
 
 
