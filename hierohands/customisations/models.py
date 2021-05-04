@@ -13,5 +13,6 @@ set_verbose_name(models.Place, 'City', 'Cities')
 set_verbose_name(models.Repository, 'Tomb')
 # set_verbose_name(models.CurrentItem, 'Chamber')
 set_verbose_name(models.ItemPart, 'Wall')
-set_verbose_name(models.Image, 'Decorum Section')
+# set_verbose_name(models.Image, 'Decorum Section')
+set_verbose_name(models.Image, 'Text Block')
 
