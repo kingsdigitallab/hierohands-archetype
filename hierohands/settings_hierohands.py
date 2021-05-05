@@ -205,3 +205,35 @@ search_graphs.getField('thumbnail')['label'] = 'Picture'
 
 remove_fields_from_faceted_search(['allograph', 'repo_city', 'hi_date', 'hand_place', 'hand_label', 'locus'], 'graphs')
 
+# rename types
+search_images = FacettedType.fromKey('images')
+search_images.options['label'] = 'Text block'
+search_manuscript = FacettedType.fromKey('manuscripts')
+search_manuscript.options['label'] = 'Wall'
+
+def rename_field(faceted_type, fkey, new_label):
+    field = faceted_type.getField(fkey)
+    if field:
+        field['label'] = new_label
+
+
+for t in FacettedType.getAll():
+    rename_field(t, 'repo_place', 'Tomb')
+    rename_field(t, 'repo_city', 'City')
+    rename_field(t, 'hi_date', 'Date')
+    rename_field(t, 'shelfmark', 'Chamber')
+    rename_field(t, 'locus', 'Wall')
+    t.disableView('overview')
+
+    for field_name in ['hi_date', 'hand_date']:
+        field = t.getField(field_name)
+        if field:
+            field['filter'] = False
+        fo = t.getOption('filter_order')
+        if fo:
+            try:
+                fo.remove(field_name)
+            except ValueError:
+                pass
+
+# remove date selector, not applicable to this
