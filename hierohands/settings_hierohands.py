@@ -10,7 +10,7 @@ The Lightbox is a separate project, even though it's still tightly linked to Dig
 >>> pip install git+https://github.com/Gbuomprisco/Digital-Lightbox.git
 By default, it is disabled. You can enable it by setting the variable LIGHTBOX in your settings:
 """
-LIGHTBOX = False
+LIGHTBOX = True
 
 # Mezzanine
 SITE_TITLE = 'Hieroglyphic Hands'
