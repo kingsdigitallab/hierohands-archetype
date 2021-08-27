@@ -180,6 +180,7 @@ search_graphs.addField({
     'key': 'scribe', 'label': 'Scribe',
     'path': 'hand.scribe', 'transform': get_search_label_from_scribe,
     'viewable': True, 'type': 'title', 'search': True,
+    'filter': True, 'count': True,
 })
 search_graphs.addFieldToOption('column_order', 'scribe', 'hand_label')
 
@@ -205,11 +206,37 @@ search_graphs.getField('thumbnail')['label'] = 'Picture'
 
 remove_fields_from_faceted_search(['allograph', 'repo_city', 'hi_date', 'hand_place', 'hand_label', 'locus'], 'graphs')
 
+# add C,F and CF to graphs
+empty_mappings = FacettedType.getFragment('field_mapping_empty')
+search_graphs.addField({
+    'key': 'component', 'label': 'Component', 'path': 'graph_components.all.component.name',
+    'type': 'id', 'filter': True, 'count': True, 'multivalued': True, 'mapping': empty_mappings
+})
+search_graphs.addField({
+    'key': 'feature', 'label': 'Feature', 'path': 'graph_components.all.features.all.name',
+    'type': 'id', 'filter': True, 'count': True, 'multivalued': True, 'mapping': empty_mappings
+})
+search_graphs.addField({
+    'key': 'cf', 'label': 'Component-Feature', 'path': 'get_component_feature_labels',
+    'type': 'id', 'filter': True, 'count': True, 'multivalued': True, 'mapping': empty_mappings
+})
+# search_graphs.addField({
+#     'key': 'aspect', 'label': 'Aspect', 'path': 'aspects.name',
+#     'type': 'id', 'filter': True, 'count': True, 'multivalued': True, 'mapping': empty_mappings
+# })
+
+search_graphs.addFieldsToOption(
+    'filter_order',
+    ['component', 'feature', 'cf', 'scribe'],
+    'character'
+)
+
 # rename types
 search_images = FacettedType.fromKey('images')
 search_images.options['label'] = 'Text block'
 search_manuscript = FacettedType.fromKey('manuscripts')
 search_manuscript.options['label'] = 'Wall'
+
 
 def rename_field(faceted_type, fkey, new_label):
     field = faceted_type.getField(fkey)
