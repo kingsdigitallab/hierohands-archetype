@@ -5,7 +5,7 @@ from django.contrib import admin
 
 admin.autodiscover()
 # Leave that import here even if we don't use it. Monkey patching.
-from hierohands.customisations import models
+from .customisations import models
 
 # ADD YOUR OWN URLPATTERNS *ABOVE* THE LINE BELOW.
 # DigiPal URLs
