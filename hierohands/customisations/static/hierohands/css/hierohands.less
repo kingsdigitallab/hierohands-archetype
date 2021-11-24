@@ -1,0 +1,26 @@
+/* Banners */
+// ALLOW_IMPORT
+@import '../../digipal/css/dpvars_bs.less';
+
+#banner-img-right {
+    background: none;
+}
+
+#banner-img-left {
+    background: none;
+}
+
+nav.primary-nav {
+    background: url('/static/digipal/images/hierohands_banner3.png') center top #e5e7ec;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    @media (max-width: @screen-xs-min) {
+        .navbar-header {
+            .navbar-brand {
+                // place the brand in the middle of the banner
+                top: 0px;
+            }
+        }
+    }
+}

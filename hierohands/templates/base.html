@@ -1,0 +1,19 @@
+{% extends "base_default.html" %}
+{% load pages_tags mezzanine_tags future %}
+{% comment %}
+    Project customisation
+{% endcomment %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}hierohands/css/hierohands.less" type="text/less" />
+    {% endcompress %}
+{% endblock %}
+
+{% block logo %}
+    <span id='logo'>
+        {%spaceless%}
+        {%endspaceless%}
+    </span>
+{% endblock %}
